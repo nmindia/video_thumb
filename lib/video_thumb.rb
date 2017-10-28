@@ -38,7 +38,7 @@ module VideoThumb
       vimeo_size    = 'thumbnail_large'
     end
 
-    if url.include? 'youtube'
+    if url.include?('youtu.be') || url.include?('youtube')
       regex = /(https?:\/\/)?(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\?\S+)?/
       url.gsub(regex) do
         youtube_video_id = $4
@@ -46,7 +46,7 @@ module VideoThumb
         return image
       end
     elsif url.include? 'vimeo'
-      regex = /^https?:\/\/(?:.*?)\.?(vimeo)\.com\/(\d+).*$/
+      regex = /^https?:\/\/(?:.*?)\.?(vimeo\.com\/channels\/staffpicks|vimeo\.com)\/(\d+).*$/
       url.gsub(regex) do
         vimeo_video_id = $2
         vimeo_video_json_url = 'http://vimeo.com/api/v2/video/%s.json' % vimeo_video_id
